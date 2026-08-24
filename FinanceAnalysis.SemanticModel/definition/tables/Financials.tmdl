@@ -1,6 +1,11 @@
 table Financials
 	lineageTag: 5efb8b3a-896c-4a20-a29d-ac349ab845a5
 
+	measure 'Total Sales' = SUM(Financials[Sales])
+		lineageTag: 329f9525-b006-4714-86c5-d4172befef73
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
 	column Segment
 		dataType: string
 		lineageTag: 0fbfc8c7-7a51-4be0-8e8a-53776a7f051d
@@ -151,15 +156,27 @@ table Financials
 
 		annotation SummarizationSetBy = Automatic
 
+	column Month
+		dataType: string
+		lineageTag: adaaa43e-dd32-4cd2-91bf-0a2b731e6d30
+		summarizeBy: none
+		sourceColumn: Month
+
+		annotation SummarizationSetBy = Automatic
+
 	partition Financials = m
 		mode: import
 		source =
 				let
 				    Source = Csv.Document(File.Contents("C:\MyProject\data\Financials.csv"),[Delimiter=",", Columns=16, Encoding=1252, QuoteStyle=QuoteStyle.None]),
 				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
-				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Segment", type text}, {"Country", type text}, {"Product", type text}, {"Discount Band", type text}, {"Units Sold", type number}, {"Manufacturing Price", Int64.Type}, {"Sale Price", Int64.Type}, {"Gross Sales", Int64.Type}, {"Discounts", type number}, {"Sales", type number}, {"COGS", Int64.Type}, {"Profit", type number}, {"Date", type date}, {"Month Number", Int64.Type}, {"Month Name", type text}, {"Year", Int64.Type}})
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Segment", type text}, {"Country", type text}, {"Product", type text}, {"Discount Band", type text}, {"Units Sold", type number}, {"Manufacturing Price", Int64.Type}, {"Sale Price", Int64.Type}, {"Gross Sales", Int64.Type}, {"Discounts", type number}, {"Sales", type number}, {"COGS", Int64.Type}, {"Profit", type number}, {"Date", type date}, {"Month Number", Int64.Type}, {"Month Name", type text}, {"Year", Int64.Type}}),
+				    #"Inserted First Characters" = Table.AddColumn(#"Changed Type", "First Characters", each Text.Start([Month Name], 3), type text),
+				    #"Renamed Columns" = Table.RenameColumns(#"Inserted First Characters",{{"First Characters", "Month"}})
 				in
-				    #"Changed Type"
+				    #"Renamed Columns"
 
 	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
 

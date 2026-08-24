@@ -1,9 +1,9 @@
 # Power BI Version Control with Git (PBIP/TMDL)
 
-**This is a course exercise, not a standalone portfolio project.** It follows
-the Udemy course "Power BI CI/CD: GitHub, Version Control, Pipelines" by
-A Siva Theja, covering the offline Git workflow only — Power BI Service /
-Microsoft Fabric deployment pipelines are out of scope.
+**This is a course exercise, not a standalone portfolio project.** It is based
+on the Udemy course "Power BI CI/CD: GitHub, Version Control, Pipelines" by
+A Siva Theja, adapted to run without SQL Server and without a Power BI Service
+tenant — see *How this differs from the course* below.
 
 ## What this demonstrates
 
@@ -14,6 +14,14 @@ Microsoft Fabric deployment pipelines are out of scope.
   through Git
 - Branching, merging, and resolving a merge conflict on the semantic model
 - Rolling back an accidental change (deleted visual) using Git history
+
+## How this differs from the course
+
+| Course setup | This repo | Why |
+|---|---|---|
+| SQL Server with three databases (`Finance_Dev/_Test/_Prod`) | A single CSV file (Microsoft Financial Sample) | The three databases exist to feed three Fabric workspaces in the deployment-pipeline part of the course, which is out of scope here. For Git version control the data source is irrelevant. |
+| Two developers on separate machines | One developer, two branches | The merge conflict is produced deliberately by changing the same measure on two branches and merging both into `dev` — same mechanics, no second account needed. |
+| Power BI Service / Fabric deployment pipelines | Not covered | Requires a work or school account; this repo is the local Git workflow only. |
 
 ## Why this matters
 
@@ -31,11 +39,21 @@ project stores only the model and report definitions, not the data.
 
 ## Screenshots
 
-*(dashboard)*
+**The report**
 
-*(git diff on a DAX measure in TMDL)*
+<img width="1247" height="661" alt="dashboard" src="https://github.com/user-attachments/assets/ee5c83f0-08e4-4db4-894b-0a80955e2557" />
+
+**A DAX measure change as a text diff**
+
+<img width="587" height="233" alt="final_diff_readme" src="https://github.com/user-attachments/assets/b5a56f71-a553-4da4-9d83-3fe0121eec5a" />
+
+Because the semantic model is stored as TMDL, a change to a measure shows up
+as two lines of readable text rather than a binary file that "just changed".
 
 ## Course credit
 
-Built following the Udemy course "Power BI CI/CD: GitHub, Version Control,
-Pipelines" by A Siva Theja.
+The Git workflow in this repo follows the Udemy course "Power BI CI/CD:
+GitHub, Version Control, Pipelines" by A Siva Theja. The data source, the
+single-developer merge-conflict setup, and leaving out the Fabric
+deployment-pipeline part are my own adaptations — see *How this differs
+from the course* above.
