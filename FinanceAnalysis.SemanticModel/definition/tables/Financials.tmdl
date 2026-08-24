@@ -1,7 +1,7 @@
 table Financials
 	lineageTag: 5efb8b3a-896c-4a20-a29d-ac349ab845a5
 
-	measure 'Total Sales' = SUM(Financials[Sales])
+	measure 'Total Sales' = SUM(Financials[Gross Sales])
 		lineageTag: 329f9525-b006-4714-86c5-d4172befef73
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
