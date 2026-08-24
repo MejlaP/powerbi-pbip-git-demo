@@ -41,11 +41,13 @@ project stores only the model and report definitions, not the data.
 
 **The report**
 
-<img width="1247" height="661" alt="dashboard" src="https://github.com/user-attachments/assets/ee5c83f0-08e4-4db4-894b-0a80955e2557" />
+<img width="1240" height="661" alt="dashboard" src="https://github.com/user-attachments/assets/2315fce8-93bb-4a94-af9c-65c509bb8e1c" />
+
 
 **A DAX measure change as a text diff**
 
 <img width="587" height="233" alt="final_diff_readme" src="https://github.com/user-attachments/assets/b5a56f71-a553-4da4-9d83-3fe0121eec5a" />
+
 
 Because the semantic model is stored as TMDL, a change to a measure shows up
 as two lines of readable text rather than a binary file that "just changed".
